@@ -1,37 +1,27 @@
 package com.uzum.java.homework.lesson4;
 
 
-import com.uzum.java.homework.lesson4.resourceHomework3_1;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Homework3_1 {
-
-
-    public static void main(String[] args) {
-        String text = resourceHomework3_1.TEXT;
-
-        Map<String, Integer> wordCounts = countWords(text);
-
-
-        for (Map.Entry<String, Integer> entry : wordCounts.entrySet()) {
-            System.out.println(entry.getKey() + ": " + entry.getValue());
-        }
-    }
-
-
     public static Map<String, Integer> countWords(String text) {
 
+        // method converts all words in to lower case for case-insensitivity
         text = text.toLowerCase();
-        text = text.replaceAll("\\p{Punct}", "");
-        text = text.replaceAll("—", "");
+
+        // method replaces all punctual characters with space
+        text = text.replaceAll("\\p{Punct}", " ");
+
+        // method splits the text into words based on whitespace
         String[] words = text.split("\\s+");
 
         Map<String, Integer> wordCounts = new HashMap<>();
 
         for (String word : words) {
-            int count = wordCounts.getOrDefault(word, 0);
-            wordCounts.put(word, count + 1);
+            if (!word.isEmpty()) {
+                wordCounts.put(word, wordCounts.getOrDefault(word, 0) + 1);
+            }
         }
 
         return wordCounts;
